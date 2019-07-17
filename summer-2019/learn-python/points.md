@@ -199,3 +199,41 @@ print(y)
 一部分常用：
 <table><tbody><tr><td><strong>^</strong></td><td>Matches the beginning of a line</td></tr><tr><td><strong>$</strong></td><td>Matches the end of the line</td></tr><tr><td><strong>.</strong></td><td>Matches any character</td></tr><tr><td><strong>\s</strong></td><td>Matches whitespace</td></tr><tr><td><strong>\S</strong></td><td>Matches any non-whitespace character</td></tr><tr><td><strong>*</strong></td><td>Repeats a character zero or more times</td></tr><tr><td><strong>*?</strong></td><td>Repeats a character zero or more times (non-greedy)</td></tr><tr><td><strong>+</strong></td><td>Repeats a character one or more times</td></tr><tr><td><strong>+?</strong></td><td>Repeats a character one or more times (non-greedy)</td></tr><tr><td><strong>[aeiou]</strong></td><td>Matches a single character in the listed set</td></tr><tr><td><strong>[^XYZ]</strong></td><td>Matches a single character <em>not</em> in the listed set</td></tr><tr><td><strong>[a-z0-9]</strong></td><td>The set of characters can include a range</td></tr><tr><td><strong>(</strong></td><td>Indicates where string extraction is to start</td></tr><tr><td><strong>)</strong></td><td>Indicates where string extraction is to end</td></tr></tbody></table>
 
+## 网络技术 Networked Technology
+
+### TCP Transport Control Protocol
+
+- Built on the top of IP(Internet Protocol)
+- Assumes IP might lose some data-stores and retransmits data if it seems to be lost
+- Handles "follow control" using a transmit window
+- Provides a nice reliable pipe
+
+多层概念；socket在计算机网络中，socket是双向进程间通信流的端点通过基于互联网协议的计算机网络。
+
+ TCP port number:
+
+- A port is an application-specific or process-specific software communications endpoint
+- It allows multiple networked applications to coexist on the same server
+- There are a list of well-known TCP port numbers [TCP and UDP](http://en.wikipedia.org/wiki/TCP and UDP port)
+
+Sockets in Python
+
+```py
+import socket
+mysocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysocket.connect(('data.pr4e.org', 80))
+```
+
+### Application Protocol
+
+http-超文本传输协议，互联网上占主导地位的应用层协议，为网络而发明——检索超文本标记语言、图像、文档等
+扩展为文档之外的数据-RSs。Web服务等等。基本概念-建立连接-请求文档-检索文档-关闭连接
+[维基](http:/en.wikipedia.org/wiki/Http)
+
+Uniform Resource Locators or URL 统一资源定位符
+
+IETF是Internet工程任务组（Internet Engineering Task Force）的简写。除TCP/IP以外所有的互联网基本技术都是由其开发或者改进的。RFC（Request For Comments），2616和hettp相关。
+
+telnet
+
+
