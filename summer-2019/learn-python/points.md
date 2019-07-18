@@ -236,4 +236,14 @@ IETF是Internet工程任务组（Internet Engineering Task Force）的简写。�
 
 telnet
 
+### Unicode Characters and Strings
 
+ASCII(America Standard Code for Information Interchange)
+
+``ord()``函数返回待查询字符的ASCII值。Python3中的编码为Unicode，获取外部数据时需要``decode()``，从网络中直接获得的数据是按位存储的，byte。
+
+### urllib
+
+网页抓取：程序或者脚本假装为浏览器并检索网页，提取信息，并且查看更多的网页。把抓取网页的搜索引擎叫做网络爬虫。
+
+一个库 beautifulsoap
