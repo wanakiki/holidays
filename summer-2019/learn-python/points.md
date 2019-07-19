@@ -5,7 +5,6 @@
 1. 代码的四种模式：顺序、条件、循环、存储并重复使用（即函数）。
 2. 空类型 None  ``if x is None:``
 
-
 ## if语句
 
 分为if、else；if、elif、else。注意只会取一个执行。
@@ -246,4 +245,33 @@ ASCII(America Standard Code for Information Interchange)
 
 网页抓取：程序或者脚本假装为浏览器并检索网页，提取信息，并且查看更多的网页。把抓取网页的搜索引擎叫做网络爬虫。
 
-一个库 beautifulsoap
+一个库 beautifulsoap。
+
+## Web Services and XML
+
+XML可扩展标记语言，适合万维网中信息的传输。信息在互联网中进行传递对应着序列化和反序列化两个操作，即serialize和de-serialize。相较于XML，JSON更加简单和现代。
+
+XML（Extensible Markup Language），XML流行的原因和html的流行有一定的关系，两者有着近似的编码方式，甚至可以说XML影响了HTML。XML的工作方式也是通过开闭两个标签进行标记。
+
+```XML
+<people>
+  <person>
+   <name>Chunk</name>
+   <phone>303 446</phone>
+  </person>
+  <person>
+   <name>Noah</name>
+   <phone>622 7421</phone>
+  </person>
+</people>
+```
+
+在上面的例子中，name就是一个简单元素，person因为有两个孩子，所以是复杂元素。XML整体的结构也像一棵树。（XML并不在意缩进）XML基础：
+
+- Start Tag
+- End Tag
+- Text Content
+- Attribute (属性)
+- Self Closing Tag
+
+XML Schema（XML架构）
