@@ -251,6 +251,8 @@ ASCII(America Standard Code for Information Interchange)
 
 XML可扩展标记语言，适合万维网中信息的传输。信息在互联网中进行传递对应着序列化和反序列化两个操作，即serialize和de-serialize。相较于XML，JSON更加简单和现代。
 
+### XML
+
 XML（Extensible Markup Language），XML流行的原因和html的流行有一定的关系，两者有着近似的编码方式，甚至可以说XML影响了HTML。XML的工作方式也是通过开闭两个标签进行标记。
 
 ```XML
@@ -274,4 +276,165 @@ XML（Extensible Markup Language），XML流行的原因和html的流行有一�
 - Attribute (属性)
 - Self Closing Tag
 
-XML Schema（XML架构）
+#### XML Schema（XML架构）
+
+虽然不知道架构具体意味着什么，但是我仍知道有多种架构：DTD、SGML、XSD
+
+```py
+import xml.etree.ElementTree as ET
+```
+
+可以用成对的`` ``` ``来定义一段XML文档，两个相关例子：[例一](xml1.py)、[例二](xml2.py)
+
+*从XML中提取数据需要知道数据树的层次逻辑，并且不能使用相对路径，在逻辑树未知的情况下应该选用什么做法呢？*
+
+ISO 8601，国际日期和时间表示方法。
+
+### JSON(JavaScript Object Notation)
+
+和Javascript相对贴近，当下越来越多的东西被构建在了浏览器里，JavaScript也因此变得流行。简单例子：
+
+```py
+import json
+data = '''{
+    "name" : "Chuck",
+    "phone" : {
+        "type" : "intl",
+        "number" : "+1 734 303 4456"
+    },
+    "email" : {
+        "hide" : "yes"
+    }
+}'''
+
+info = json.loads(data)
+print('Name', info['name'])
+print('Hide', info['email']["hide"])
+```
+
+从这个例子可以看出，在使用JSON库对json文件进行提取后，提取出的数据结构操作方法基本和python的字典一致。相较于XML，JSON更简单但是更易用。
+
+list的例子：
+
+```py
+import json
+data = '''[
+    {
+        "id" : 001",
+        "x" : "2",
+        "name" : "Chuck"
+    },
+    {
+        "id" : "009",
+        "x" : "7",
+        "name" : "Chuck"
+    }
+]'''
+
+info = json.loads(data)
+print('user count', len(info))
+for item in info:
+    print('Name', item['name'])
+    print('Id', item['id'])
+    print('Attribute', item['x'])
+```
+
+在上面这段代码中，json部分被转化为了一个由字典组成的列表。
+
+``print(json.dumps(js, indent = 4))``可以带有缩进地输出被加载后的json文件的原始文件情况。
+
+#### Service Oriented Approach
+
+面向服务，通过在应用程序之上添加一个服务层，可以实现不同应用之间数据的良好传输，使得数据传输时没有太大的间隔。多个具备特殊服务层的系统相结合，因为彼此之间的密切联系会形成一个统一的服务系统。在这里，给出了一个例子，假设有一个学生作业在线评估系统，如果成绩的评估能够快速无阻碍地共享给其他应用程序。就能够给更多的程序带来利益。（铁路购票系统提供宾馆预订服务）
+
+CORBA（Common Object Request Broker Architecture,公共对象请求代理体系结构，通用对象请求代理体系结构）
+
+Application Programing Interface，API，服务器公布的使用服务器应用程序的规则。利用谷歌地图API的一个例子：
+
+```py
+import urllib.request
+import urllib.parse
+import urllib.error
+import json
+
+serviceurl = 'http://maps.googleapis.com/maps/api/geocode/json?'
+
+while True:
+    address = input('Enter location ')
+    if len(address) < 1:
+        break
+
+    url = serviceurl + urllib.parse.urlencode({'address': address})
+    print('Retriving', url)
+    uh = urllib.request.urlopen(url)
+    data = uh.read().decode()
+    print('Retrived', len(data), 'characters')
+
+    try:
+        js = json.loads(data)
+    except:
+        js = None
+
+    if not js or 'status' not in js or js['status'] != 'OK':
+        print('Failed')
+        print(data)
+        continue
+
+    lat = js['results'][0]['geometry']['location']['lat']
+    lng = js['results'][0]['geometry']['location']['lng']
+
+    print('lnt', lat, 'lng', lng)
+    location = js['results'][0]['formatted_address']
+    print(location)
+```
+
+（然而由于谷歌开始收费，这段代码已经无法使用）
+
+下面这段代码是[百度翻译](http://api.fanyi.baidu.com/api/trans/product/apidoc)官方的一个DEMO：
+
+```py
+#/usr/bin/env python
+#coding=utf8
+ 
+import httplib
+import md5
+import urllib
+import random
+
+appid = '' #你的appid
+secretKey = '' #你的密钥
+
+ 
+httpClient = None
+myurl = '/api/trans/vip/translate'
+q = 'apple'
+fromLang = 'en'
+toLang = 'zh'
+salt = random.randint(32768, 65536)
+
+sign = appid+q+str(salt)+secretKey
+m1 = md5.new()
+m1.update(sign)
+sign = m1.hexdigest()
+myurl = myurl+'?appid='+appid+'&q='+urllib.quote(q)+'&from='+fromLang+'&to='+toLang+'&salt='+str(salt)+'&sign='+sign
+ 
+try:
+    httpClient = httplib.HTTPConnection('api.fanyi.baidu.com')
+    httpClient.request('GET', myurl)
+ 
+    #response是HTTPResponse对象
+    response = httpClient.getresponse()
+    print response.read()
+except Exception, e:
+    print e
+finally:
+    if httpClient:
+        httpClient.close()
+```
+
+API Security and Rate Limiting：
+
+- The compute resources to run these APIs are not free
+- The data provided by these APIs is usually valuable
+- The data providers might limit the number of requests per day, demand an API"key", or even charge for usage
+- They might change the rules as things progress
