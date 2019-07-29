@@ -438,3 +438,20 @@ API Security and Rate Limiting：
 - The data provided by these APIs is usually valuable
 - The data providers might limit the number of requests per day, demand an API"key", or even charge for usage
 - They might change the rules as things progress
+
+## Unicode Characters and Strings
+
+Representing Simple Strings（表示简单字符），每个字符由一个0-256的数字表示，存储在8bit的内存中。python的Ord()函数可以输出一个简单阿斯克码字符对应的数字值。
+
+多字节字符：为了代表计算机必须处理的各种字符必须使用超过一个字节的内存。
+
+- UTF-16-固定长度-两个字节
+- UTF-32-固定长度-4字节
+- UTF-8-1到4字节
+  - 向上兼容ASCII
+  - 在ASCII和UTF-8之间自动检测
+  - 要在系统之间交换数据，UTF-8是编码的推荐做法
+
+python3中，所有的字符串都是Unicode。这里指的是程序内部。在互联网中传输的数据一般都是byte形式，str的encode()函数可以将str转化为byte，相对应的byte的decode()函数可以把byte转化为str。
+
+## Object Oriented
