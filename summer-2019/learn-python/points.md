@@ -112,7 +112,7 @@ list由两个方括号包围，内部变量之间用逗号分隔，list里可以
 
 调用成员函数sort可以对list本身进行排序，排序后可以对其他变量赋值。由于成员函数具有返回值，`` x = data.sort()``这条语句执行后x的值为None。
 
-```py
+```python
 stuff = list()
 stuff.append('book')
 stuff.append(99)
@@ -455,3 +455,74 @@ Representing Simple Strings（表示简单字符），每个字符由一个0-256
 python3中，所有的字符串都是Unicode。这里指的是程序内部。在互联网中传输的数据一般都是byte形式，str的encode()函数可以将str转化为byte，相对应的byte的decode()函数可以把byte转化为str。
 
 ## Object Oriented
+
+对于init函数，python不支持定义拥有两种传参类型的同名函数。
+
+- Class-a template
+- Attribute-A variable within a class
+- Method-A function within a class
+- Object-A particular instance of a class
+- Constructor- Code that runs when an object is created
+- Inheritance The ability to extend a class to make a new class
+
+Inheritance（继承）
+
+```py
+class partyAnimal:
+    x = 0
+    name = ''
+
+    def __init__(self, z = ''):
+        self.name = z
+        print(self.name, 'constructed')
+
+    def party(self):
+        self.x = self.x + 1
+        print(self.name, 'So far', self.x)
+
+    def __del__(self):
+        print(self.name, 'destructed', self.x)
+
+# 继承
+class footballFan(partyAnimal):
+    points = 0
+    def touchDown(self):
+        self.points = self.points + 7
+        self.party()
+        print(self.name, 'points', self.points)
+
+an = partyAnimal('sally')
+print(an.x)
+an.party()
+partyAnimal.party(an)   #两种表述等价
+
+an = 42
+print('an contains', an)
+
+# print('Type', type(an))
+# print('Dir', dir(an))
+print('==============')
+s = footballFan('tim')
+s.party()
+s.touchDown()
+```
+
+## Databases
+
+这一大部分的内容是让python和数据库进行结合，在数据处理时变得更加高效。
+
+>### 大型项目中的两个角色
+>1. 应用开发人员：构建应用程序的逻辑、外观，并且监控应用程序的问题。
+>2. 数据库管理员：在程序运行过程中监督和调整数据库
+>
+>通常情况下两种角色都需要参与“数据模型”的构建。
+
+数据库的常用操作：
+
+1. 创建 CREATE
+2. 删除 DELETE
+3. 更新 UPDATE ... SET ..
+4. 插入 INSERT INTO
+5. 查看数据 SELECT ... FROM ... ORDER BY ...
+
+[sqlite3文档](https://docs.python.org/zh-cn/3/library/sqlite3.html#module-sqlite3)
