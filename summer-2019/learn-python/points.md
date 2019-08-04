@@ -526,3 +526,17 @@ s.touchDown()
 5. 查看数据 SELECT ... FROM ... ORDER BY ...
 
 [sqlite3文档](https://docs.python.org/zh-cn/3/library/sqlite3.html#module-sqlite3)
+
+数据库设计是一种具有独特技能和经验的艺术形式，我们的目标是避免真正糟糕的错误和设计干净易懂的数据库，其他人可能稍后会进行调整，数据库设计从图片开始。
+
+构建数据模型：为应用程序绘制数据对象的图片然后找出如何表示这些对象和他们的关系。最基本的规则是同样的字符串数据不要用两次，使用关联来改变需要多次使用的情况。当现实世界中有一个事物时，就应该有对应的副本存在于数据库中。
+
+- primary key（主键）
+- logical key（逻辑键）
+- foreign key（外键）
+
+![一个典型的数据库设计](database.jpg)
+
+上图所示关系为多对一关系。针对于多对多的关系，需要一个额外的连接表，将多对多转化为两个多对一。
+
+针对于UNIQUE限制的属性，使用``INSERT OR IGNORE``避免插入时出现问题。``executescript()``可以执行一段sql代码。
